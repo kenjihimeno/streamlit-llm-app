@@ -34,12 +34,23 @@ if st.button("実行"):
     
     if input_message:
         if selected_item == "サッカー、スコア予想":
+            role_prompt = "あなたはサッカーの専門家です。試合情報をもとにスコアを予想してください。"
             st.write(f"試合情報「{input_message}」に基づくスコア予想を実行中...")
             
         else:
+            role_prompt = "あなたはクラシック音楽の専門家です。正確かつ深い知識で質問に答えてください。"
             st.write(f"クラシック音楽の質問「{input_message}」に対する回答を生成中...")
             
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "system", "content": role_prompt},
+                {"role": "user", "content": input_message}
+            ]
+        )
+
+        st.write("▼ 回答")
+        st.success(response.choices[0].message.content)
+
     else:
         st.error("テキストを入力してから「実行」ボタンを押してください。")
-
-streamlit run sample2.py
