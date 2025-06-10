@@ -41,3 +41,5 @@ if st.button("実行"):
             
     else:
         st.error("テキストを入力してから「実行」ボタンを押してください。")
+
+streamlit run sample2.py
